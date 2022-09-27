@@ -8,11 +8,13 @@
   },
   "keywords": [
     "js",
-    "javascript"
+    "javascript",
+    "parcel"
   ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^2.0.20",
     "parcel": "^2.7.0"
   }
 }

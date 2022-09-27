@@ -550,7 +550,16 @@ var _imagePngDefault = parcelHelpers.interopDefault(_imagePng);
 const model = [
     {
         type: "title",
-        value: "hello from JS!"
+        value: "Конструктор на чистом JS",
+        option: {
+            tag: "h2",
+            styles: {
+                background: "linear-gradient(to right, #ff0099, #493240)",
+                color: "green",
+                padding: "1.5rem",
+                "text-align": "center"
+            }
+        }
     },
     {
         type: "text",
@@ -643,23 +652,25 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "templates", ()=>templates);
 var _utils = require("./utils");
 function title(block) {
-    return (0, _utils.row)((0, _utils.col)("<h1>${block.value}</h1>"));
+    const { tag ="h1" , styles  } = block.option;
+    return (0, _utils.row)((0, _utils.col)(`<${tag}>${block.value}</${tag}>`), (0, _utils.css)(styles));
 }
 function text(block) {
-    return (0, _utils.row)((0, _utils.col)("<p>${block.value}</p>"));
+    return (0, _utils.row)((0, _utils.col)(`<p>${block.value}</p>`));
 }
 function columns(block) {
-    const html = block.value.map((item)=>(0, _utils.col)(item));
-    return (0, _utils.row)(html.join(""));
+    const html = block.value.map((0, _utils.col)).join("");
+    return (0, _utils.row)(html);
 }
 function image(block) {
-    return (0, _utils.row)('<img crc=$"{block.value}" />');
+    return (0, _utils.row)(`<img src="${block.value}"   alt=""/>`) //alt??
+    ;
 }
 const templates = {
     title,
     text,
     image,
-    colums
+    columns
 };
 
 },{"./utils":"en4he","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"en4he":[function(require,module,exports) {
@@ -667,11 +678,16 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "row", ()=>row);
 parcelHelpers.export(exports, "col", ()=>col);
-function row(content) {
-    return `<div class="row">${content}</div>`;
+parcelHelpers.export(exports, "css", ()=>css);
+function row(content, styles = "") {
+    return `<div class="row" style="$(styles)">${content}</div>`;
 }
 function col(content) {
     return `<div class="col-sm">${content}</div>`;
+}
+function css(styles = {}) {
+    const toString = (key)=>`${key}: ${styles[key]}`;
+    return Object.keys(styles).map(toString).join(";");
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"clPKd":[function() {},{}]},["ShInH","8lqZg"], "8lqZg", "parcelRequire3b32")
